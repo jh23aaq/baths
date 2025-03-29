@@ -24,7 +24,7 @@ public class SeaBattles implements BATHS
      */  
     public SeaBattles(String adm)
     {
-      
+        
         
        setupShips();
        setupEncounters();
@@ -36,11 +36,10 @@ public class SeaBattles implements BATHS
      * @param filename name of file storing encounters
      */  
     public SeaBattles(String admir, String filename)  //Task 3
-    {
-      
-        
-       setupShips();
-       // setupEncounters();
+    {  
+
+       setupShips();    
+       //setupEncounters();
        // uncomment for testing Task 
        // readEncounters(filename);
     }
