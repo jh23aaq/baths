@@ -47,7 +47,7 @@ public class Encounter implements Serializable {
     @Override
     public String toString() {
         return "Encounter No: " + number + ", Type: " + type + ", Location: " + location +
-                ", Skill Required: " + requiredSkill + ", Prize: £" + prizeMoney;
+                ", Skill Required: " + requiredSkill + ", Prize: " + prizeMoney;
     }
 }
  
@@ -70,5 +70,5 @@ public class Encounter implements Serializable {
     
     
     
-}
+
 
