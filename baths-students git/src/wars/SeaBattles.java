@@ -13,7 +13,7 @@ import java.io.*;
 public class SeaBattles implements BATHS 
 {
     // may have one HashMap and select on stat
-
+    // TEST comment
     private String admiral;
     private double warChest = 1000;
     
