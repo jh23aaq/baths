@@ -48,14 +48,15 @@ public class GameUI
             }
             else if (choice == 5)
             {
-       	       System.out.println("Enter encounter number to fight: ");
-               int ref = myIn.nextInt();
+
+       	        System.out.println("Enter encounter number to fight: ");
+                int ref = myIn.nextInt();
+                myIn.nextLine();
+                System.out.println(myBattles.fightEncounter(ref));
             }
             else if (choice ==6)
             {
-	        //write your code here
-
-
+                System.out.println("Enter ship name to restore: ");
             }
             else if (choice == 7)
             {
