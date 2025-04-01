@@ -60,7 +60,7 @@ public class GameUI
                 myIn.nextLine();
                 String ref = (myIn.nextLine()).trim();
                 /* TODO: NEEDS FIXING - commented at the moment to not interrupt */
-                System.out.println(myBattles.restoreShip(ref));
+                /*System.out.println(myBattles.restoreShip(ref));*/
             }
             else if (choice == 7)
             {
