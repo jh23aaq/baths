@@ -243,9 +243,19 @@ public class SeaBattles implements BATHS
     public void restoreShip(String ref)
     {
     ship shipp = squadron.get(ref);
-    if (shipp != null && shipp.getShipState() == ShipState.RESTING) 
-    {
-    shipp.setShipState(ShipState.ACTIVE);}
+        if (shipp == null) 
+        {
+         System.out.println("No such ship in squadron.");
+        } 
+        else if (shipp.getShipState() != ShipState.RESTING) 
+        {
+         System.out.println("Cannot restore " + ref + ": Ship is not resting.");
+        } 
+        else 
+        {
+         shipp.setShipState(ShipState.ACTIVE);
+         System.out.println(ref + " has been restored to active state.");
+        }
     }
     
 //**********************Encounters************************* 
