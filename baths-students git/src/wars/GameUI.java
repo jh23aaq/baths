@@ -5,8 +5,8 @@ import java.util.*;
 /**
  * Task 2 - provide command line interface
  * 
- * @author A.A.Marczyk
- * @version 16/02/25
+ * @author A.A.Marczyk, Lynden Fenn
+ * @version 01/04/25
  */
 public class GameUI
 {
@@ -41,14 +41,15 @@ public class GameUI
             } 
             else if (choice == 4)
             {
-                //write your code here
-
+                System.out.println("Enter ship name to commission: ");
+                myIn.nextLine();
+                String ref = (myIn.nextLine()).trim();
+                System.out.println(myBattles.commissionShip(ref));
             }
             else if (choice == 5)
             {
-       	       //write your code here
-       
-                  
+       	       System.out.println("Enter encounter number to fight: ");
+               int ref = myIn.nextInt();
             }
             else if (choice ==6)
             {
