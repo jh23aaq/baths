@@ -54,19 +54,20 @@ public class GameUI
                 myIn.nextLine();
                 System.out.println(myBattles.fightEncounter(ref));
             }
-            else if (choice ==6)
+            else if (choice == 6)
             {
                 System.out.println("Enter ship name to restore: ");
                 myIn.nextLine();
                 String ref = (myIn.nextLine()).trim();
-                /* TODO: NEEDS FIXING */
+                /* TODO: NEEDS FIXING - commented at the moment to not interrupt */
                 System.out.println(myBattles.restoreShip(ref));
             }
             else if (choice == 7)
             {
-                //write your code here
-
-
+                System.out.println("Enter ship name to decommission: ");
+                myIn.nextLine();
+                String ref = (myIn.nextLine()).trim();
+                System.out.println(myBattles.decommissionShip(ref));
             }
             else if (choice==8)
             {
