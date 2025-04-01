@@ -57,6 +57,10 @@ public class GameUI
             else if (choice ==6)
             {
                 System.out.println("Enter ship name to restore: ");
+                myIn.nextLine();
+                String ref = (myIn.nextLine()).trim();
+                /* TODO: NEEDS FIXING */
+                System.out.println(myBattles.restoreShip(ref));
             }
             else if (choice == 7)
             {
