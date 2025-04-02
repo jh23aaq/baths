@@ -59,7 +59,7 @@ public class GameUI
                 System.out.println("Enter ship name to restore: ");
                 String restoreName = myIn.next();
                 myBattles.restoreShip(restoreName);
-                System.out.println(restoreName +" is now active.");
+
                 
             }
             else if (choice == 7)
