@@ -5,7 +5,7 @@ import java.util.*;
 /**
  * Task 2 - provide command line interface
  * 
- * @author A.A.Marczyk, Lynden Fenn
+ * @author A.A.Marczyk, Lynden Fenn, Johnny Hoang
  * @version 01/04/25
  */
 public class GameUI
@@ -61,10 +61,6 @@ public class GameUI
                 myBattles.restoreShip(restoreName);
                 System.out.println(restoreName +" is now active.");
                 
-                //myIn.nextLine();
-                //String ref = (myIn.nextLine()).trim();
-                /* TODO: NEEDS FIXING - commented at the moment to not interrupt */
-                /*System.out.println(myBattles.restoreShip(ref));*/
             }
             else if (choice == 7)
             {
