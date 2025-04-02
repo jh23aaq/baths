@@ -49,7 +49,7 @@ public class SeaBattles implements BATHS
        setupShips();    
        setupEncounters();
        // uncomment for testing Task 
-       // readEncounters(filename);
+       readEncounters(filename);
     }
     
     
@@ -409,10 +409,31 @@ public class SeaBattles implements BATHS
      * encounters.Data in the file is editable
      * @param filename name of the file to be read
      */
-    public void readEncounters(String filename)
-    { 
-      
-    }   
+    
+    /* TODO: I think @Override needs to be added, but comes up with error */
+    /*@Override */
+    public void readEncounters(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(",");
+                if (parts.length == 5) {
+                    int number = Integer.parseInt(parts[0].trim());
+                    EncounterType type = EncounterType.valueOf(parts[1].trim().toUpperCase());
+                    String location = parts[2].trim();
+                    int skill = Integer.parseInt(parts[3].trim());
+                    int prize = Integer.parseInt(parts[4].trim());
+    
+                    Encounter encounter = new Encounter(number, type, location, skill, prize);
+                    encounters.put(number, encounter);
+                }
+            }
+            System.out.println("Encounters loaded successfully from " + filename);
+        } catch (IOException | IllegalArgumentException e) {
+            System.out.println("Error reading encounters: " + e.getMessage());
+        }
+    }
+     
 
     // ***************   file write/read  *********************
     /** Writes whole game to the specified file
