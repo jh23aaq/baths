@@ -6,7 +6,7 @@ import java.io.*;
  * This class implements the behaviour expected from the BATHS
  system as required for 5COM2007 Cwk1B BATHS - Feb 2025
  * 
- * @author A.A.Marczyk 
+ * @author A.A.Marczyk, Lynden Fenn
  * @version 16/02/25
  */
 
@@ -434,12 +434,25 @@ public class SeaBattles implements BATHS
      * and returns 
      * @param fname name of file storing the game
      * @return the game (as an SeaBattles object)
+     * note: call it from GameUI, like SeaBattles loadedGame = myBattles.loadGame("mySaveFile.dat");
      */
-    public SeaBattles loadGame(String fname)
-    {   // uses object serialisation 
-       
+
+     @Override
+    public SeaBattles loadGame(String fname) {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(fname))) {
+            Object obj = ois.readObject();
+            if (obj instanceof SeaBattles) {
+                System.out.println("Game successfully loaded from " + fname);
+                return (SeaBattles) obj;
+            } else {
+                System.out.println("Error: File does not contain a valid SeaBattles object.");
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("Error loading game: " + e.getMessage());
+        }
         return null;
-    } 
+    }
+
     
  
 }

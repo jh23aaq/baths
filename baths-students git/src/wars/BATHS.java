@@ -157,5 +157,5 @@ public interface BATHS extends Serializable
 //      * @param fname name of file storing the game
 //      * @return the game (as a SeaBattles object)
 //      */
-//     public SeaBattles loadGame(String fname);
+         public SeaBattles loadGame(String fname);
 }
