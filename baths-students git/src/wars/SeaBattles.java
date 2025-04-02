@@ -412,19 +412,23 @@ public class SeaBattles implements BATHS
     public void readEncounters(String filename)
     { 
       
-        
-        
     }   
- 
-    
+
     // ***************   file write/read  *********************
     /** Writes whole game to the specified file
      * @param fname name of file storing requests
      */
-    public void saveGame(String fname)
-    {   // uses object serialisation 
-           
-    }
+    
+     @Override
+     public void saveGame(String fname) {
+         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fname))) {
+             oos.writeObject(this);
+             System.out.println("Game successfully saved to " + fname);
+         } catch (IOException e) {
+             System.out.println("Error saving game: " + e.getMessage());
+         }
+     }
+     
     
     /** reads all information about the game from the specified file 
      * and returns 
