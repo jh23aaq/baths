@@ -241,22 +241,28 @@ public class SeaBattles implements BATHS
      * @param ref the name of the ship to be restored
      */
     public void restoreShip(String ref)
-    {
-    ship shipp = squadron.get(ref);
-        if (shipp == null) 
-        {
-         System.out.println("No such ship in squadron.");
-        } 
-        else if (shipp.getShipState() != ShipState.RESTING) 
-        {
-         System.out.println("Cannot restore " + ref + ": Ship is not resting.");
-        } 
-        else 
-        {
-         shipp.setShipState(ShipState.ACTIVE);
-         System.out.println(ref + " has been restored to active state.");
-        }
+{
+    // Get the ship from RESTING
+    ship shipp = restingShips.get(ref);
+    if (shipp == null) {
+        System.out.println("No such resting ship named " + ref + ".");
+        return;
     }
+
+    // Check state
+    if (shipp.getShipState() == ShipState.RESTING) {
+        // Put it back to ACTIVE
+        shipp.setShipState(ShipState.ACTIVE);
+
+        // Move from restingShips to squadron
+        restingShips.remove(ref);
+        squadron.put(ref, shipp);
+
+        System.out.println(ref + " has been restored to active state.");
+    } else {
+        System.out.println("Cannot restore " + ref + ": Ship is not resting.");
+    }
+}
     
 //**********************Encounters************************* 
     /** returns true if the number represents a encounter
@@ -286,45 +292,59 @@ public class SeaBattles implements BATHS
       * @return a String showing the result of fighting the encounter
       */ 
     public String fightEncounter(int encNo)
-    {
-        Encounter encounter = encounters.get(encNo);
-        if (encounter == null) {
-            return "-1 No such encounter";
-        }
-
-            // Look for a suitable ship
-            for (ship shipp : squadron.values()) {
-            if (shipp.getShipState() != ShipState.ACTIVE) continue;
-            if (!shipp.canFight(encounter.getType())) continue;
-
-            String shipName = shipp.getName();
-
-            if (shipp.getBattleSkill() >= encounter.getRequiredSkill()) {
-                warChest += encounter.getPrizeMoney();
-                shipp.setShipState(ShipState.RESTING);
-                return "0 Encounter won by " + shipName + ". Prize money: £" + encounter.getPrizeMoney() +
-                       ". War chest now: £" + warChest;
-            } 
-            else 
-            {
-                warChest -= encounter.getPrizeMoney();
-                shipp.setShipState(ShipState.SUNK);
-                squadron.remove(shipName);
-                sunkShips.put(shipName, shipp);
-                String result = "2 Encounter lost on battle skill. Ship " + shipName + " is sunk. Prize lost: £" +
-                        encounter.getPrizeMoney() + ". War chest now: £" + warChest;
-                if (isDefeated()) result += "\nYou have been defeated.";
-                return result;
-            }
-        }
-
-        // No suitable ship found
-        warChest -= encounter.getPrizeMoney();
-        String result = "1 Encounter lost as no suitable ship available. Prize lost: £" +
-                        encounter.getPrizeMoney() + ". War chest now: £" + warChest;
-        if (isDefeated()) result += "\nYou have been defeated.";
-        return result;
+{
+    Encounter encounter = encounters.get(encNo);
+    if (encounter == null) {
+        return "No such encounter";
     }
+
+    // Look for a suitable ship
+    for (ship shipp : squadron.values()) {
+        if (shipp.getShipState() != ShipState.ACTIVE) continue;
+        if (!shipp.canFight(encounter.getType())) continue;
+
+        String shipName = shipp.getName();
+
+        // 1) Win condition
+        if (shipp.getBattleSkill() >= encounter.getRequiredSkill()) {
+            warChest += encounter.getPrizeMoney();
+            shipp.setShipState(ShipState.RESTING);
+
+            // REMOVE from squadron, ADD to restingShips
+            squadron.remove(shipName);
+            restingShips.put(shipName, shipp);
+
+            return "Encounter won by " + shipName
+                   + ". Prize money: £" + encounter.getPrizeMoney()
+                   + ". War chest now: £" + warChest;
+        }
+        else {
+            // 2) Lose on skill
+            warChest -= encounter.getPrizeMoney();
+            shipp.setShipState(ShipState.SUNK);
+
+            // Move it out of squadron, add to sunkShips
+            squadron.remove(shipName);
+            sunkShips.put(shipName, shipp);
+
+            String result = "Encounter lost on battle skill. Ship " + shipName
+                            + " is sunk. Prize lost: £"
+                            + encounter.getPrizeMoney()
+                            + ". War chest now: £" + warChest;
+
+            if (isDefeated()) result += "\nYou have been defeated.";
+            return result;
+        }
+    }
+
+    // 3) No suitable ship found
+    warChest -= encounter.getPrizeMoney();
+    String result = "Encounter lost as no ship available. Prize lost: £"
+                    + encounter.getPrizeMoney()
+                    + ". War chest now: £" + warChest;
+    if (isDefeated()) result += "\nYou have been defeated.";
+    return result;
+}
 
     /** Provides a String representation of an encounter given by 
      * the encounter number
