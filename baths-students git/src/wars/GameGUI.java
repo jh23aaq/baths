@@ -8,7 +8,7 @@ import java.util.*;
 /**
  * Provide a GUI interface for the game
  * 
- * @author A.A.Marczyk
+ * @author A.A.Marczyk, Lynden Fenn
  * @version 20/02/12
  */
 public class GameGUI 
@@ -47,6 +47,7 @@ public class GameGUI
         eastPanel.add(clearBtn);
         clearBtn.addActionListener(new ClearHandler());
 
+        // view state button
         eastPanel.add(viewBtn);
         viewBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -59,6 +60,7 @@ public class GameGUI
             }
         });
 
+        // fight encounter button
         eastPanel.add(fightBtn);
         fightBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
