@@ -46,6 +46,19 @@ public class GameGUI
 
         eastPanel.add(clearBtn);
         clearBtn.addActionListener(new ClearHandler());
+
+        eastPanel.add(viewBtn);
+        viewBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                listing.setVisible(true);
+                StringBuilder sb = new StringBuilder();
+                sb.append("War Chest: £").append(gp.getWarChest()).append("\n");
+                sb.append("Game Over: ").append(gp.isDefeated() ? "Yes" : "No").append("\n");
+                sb.append("Squadron Size: ").append(gp.getSquadron());
+                listing.setText(sb.toString());
+            }
+        });
+
         eastPanel.add(quitBtn);
 
         clearBtn.setVisible(true);
