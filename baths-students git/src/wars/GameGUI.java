@@ -59,6 +59,21 @@ public class GameGUI
             }
         });
 
+        eastPanel.add(fightBtn);
+        fightBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                String input = JOptionPane.showInputDialog(myFrame, "Enter encounter number: ");
+                try {
+                    int encounterNumber = Integer.parseInt(input);
+                    String result = gp.fightEncounter(encounterNumber);
+                    listing.setVisible(true);
+                    listing.setText(result);
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(myFrame, "Invalid input. Please enter a number.");
+                }
+            }
+        });
+
         eastPanel.add(quitBtn);
 
         clearBtn.setVisible(true);
